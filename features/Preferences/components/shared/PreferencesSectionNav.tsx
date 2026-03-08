@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/shared/lib/utils';
+import { useClick } from '@/shared/hooks/useAudio';
 import { Joystick, Palette, Wand2 } from 'lucide-react';
 
 const ACTIVE_SECTION_OFFSET = 156;
@@ -45,6 +46,7 @@ const getScrollContainer = () =>
 
 const PreferencesSectionNav = () => {
   const [activeSection, setActiveSection] = useState<SectionId>('behavior');
+  const { playClick } = useClick();
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -93,6 +95,7 @@ const PreferencesSectionNav = () => {
     sectionId: SectionId,
   ) => {
     event.preventDefault();
+    playClick();
 
     const section = document.getElementById(sectionId);
     const scrollContainer = getScrollContainer();
