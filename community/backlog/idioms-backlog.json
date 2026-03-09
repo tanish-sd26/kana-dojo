@@ -600,7 +600,7 @@
     "meaning": "Get angry. (Set 4)",
     "id": 67,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "japanese": "手を抜く",
@@ -626,7 +626,7 @@
     "english": "Fast ears",
     "meaning": "Quick to hear news/gossip. (Set 4)",
     "id": 70,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
