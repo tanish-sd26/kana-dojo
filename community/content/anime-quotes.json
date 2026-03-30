@@ -1,5 +1,12 @@
 [
   {
+    "japanese": "おまえはもう死んでいる",
+    "romaji": "Omae wa mou shindeiru",
+    "english": "You're already dead. (alt wording 18)",
+    "anime": "Fist of the North Star",
+    "character": "Kenshiro"
+  },
+  {
     "japanese": "ブチャラティ、来た！",
     "romaji": "Bucharati, kita!",
     "english": "Bucciarati is here!",
@@ -524,12 +531,12 @@
     "anime": "Vinland Saga",
     "character": "Thorfinn"
   },
-  { 
-    "japanese": "貴様ッ！見ているなッ！！", 
-    "romaji": "Kisama! Mite iru na!!", 
-    "english": "You! You're watching me! (alt wording 11)", 
-    "anime": "JoJo's Bizarre Adventure: Stone Ocean", 
-    "character": "Jolyne Cujoh" 
+  {
+    "japanese": "貴様ッ！見ているなッ！！",
+    "romaji": "Kisama! Mite iru na!!",
+    "english": "You! You're watching me! (alt wording 11)",
+    "anime": "JoJo's Bizarre Adventure: Stone Ocean",
+    "character": "Jolyne Cujoh"
   },
   {
     "japanese": "計画通り",
@@ -560,11 +567,11 @@
     "character": "Lain"
   },
   {
-  "japanese": "諦めないってばよ!",
-  "romaji": "Akiramenai tte bayo!",
-  "english": "I never give up, believe it! (alt wording 33)",
-  "anime": "Naruto",
-  "character": "Naruto Uzumaki"
+    "japanese": "諦めないってばよ!",
+    "romaji": "Akiramenai tte bayo!",
+    "english": "I never give up, believe it! (alt wording 33)",
+    "anime": "Naruto",
+    "character": "Naruto Uzumaki"
   },
   {
     "japanese": "奇跡は諦めない奴の頭上に降ってくるんだよ",
@@ -581,66 +588,66 @@
     "character": "Tanjiro Kamado"
   },
   {
-  "japanese": "生殺与奪の権を他人に握らせるな!",
-  "romaji": "Seisatsu yodatsu no ken o tanin ni nigiraseru na!",
-  "english": "Don't let anyone else take control of your life and death!",
-  "anime": "Demon Slayer: Kimetsu no Yaiba",
-  "character": "Tanjiro Kamado"
+    "japanese": "生殺与奪の権を他人に握らせるな!",
+    "romaji": "Seisatsu yodatsu no ken o tanin ni nigiraseru na!",
+    "english": "Don't let anyone else take control of your life and death!",
+    "anime": "Demon Slayer: Kimetsu no Yaiba",
+    "character": "Tanjiro Kamado"
   },
   {
-  "japanese": "あきらめたらそこで試合終了ですよ…？",
-  "romaji": "Akirametara soko de shiai shuuryou desu yo...?",
-  "english": "If you give up, that's the end of the game.",
-  "anime": "Slam Dunk",
-  "character": "Kaede Rukawa"
-},
+    "japanese": "あきらめたらそこで試合終了ですよ…？",
+    "romaji": "Akirametara soko de shiai shuuryou desu yo...?",
+    "english": "If you give up, that's the end of the game.",
+    "anime": "Slam Dunk",
+    "character": "Kaede Rukawa"
+  },
   {
-  "japanese": "僕は新世界の神となる",
-  "romaji": "Boku wa shin sekai no kami to naru",
-  "english": "I will become the god of the new world. (alt wording 44)",
-  "anime": "Death Note",
-  "character": "Light Yagami"
-},
+    "japanese": "僕は新世界の神となる",
+    "romaji": "Boku wa shin sekai no kami to naru",
+    "english": "I will become the god of the new world. (alt wording 44)",
+    "anime": "Death Note",
+    "character": "Light Yagami"
+  },
   {
-  "japanese": "僕は新世界の神となる",
-  "romaji": "Boku wa shin sekai no kami to naru",
-  "english": "I will become the god of the new world. (alt wording 44)",
-  "anime": "Death Note",
-  "character": "Light Yagami"
-},
-{
-  "japanese": "おれは人間を超越する！",
-  "romaji": "Ore wa ningen o chouetsu suru!",
-  "english": "I will transcend humanity!",
-  "anime": "JoJo's Bizarre Adventure: Battle Tendency",
-  "character": "Kars"
-},
+    "japanese": "僕は新世界の神となる",
+    "romaji": "Boku wa shin sekai no kami to naru",
+    "english": "I will become the god of the new world. (alt wording 44)",
+    "anime": "Death Note",
+    "character": "Light Yagami"
+  },
   {
-  "japanese": "等価交換。何かを得るには、同等の代価が必要だ",
-  "romaji": "Toukatsu koukan. Nani ka o eru ni wa, doutou no daika ga hitsuyou da",
-  "english": "Equivalent exchange. To obtain, something of equal value must be lost.",
-  "anime": "Fullmetal Alchemist: Brotherhood",
-  "character": "Edward Elric"
-},
+    "japanese": "おれは人間を超越する！",
+    "romaji": "Ore wa ningen o chouetsu suru!",
+    "english": "I will transcend humanity!",
+    "anime": "JoJo's Bizarre Adventure: Battle Tendency",
+    "character": "Kars"
+  },
   {
-  "japanese": "何ッ！？",
-  "romaji": "Nani!?",
-  "english": "What?!",
-  "anime": "Fist of the North Star",
-  "character": "Shin"
-},
+    "japanese": "等価交換。何かを得るには、同等の代価が必要だ",
+    "romaji": "Toukatsu koukan. Nani ka o eru ni wa, doutou no daika ga hitsuyou da",
+    "english": "Equivalent exchange. To obtain, something of equal value must be lost.",
+    "anime": "Fullmetal Alchemist: Brotherhood",
+    "character": "Edward Elric"
+  },
   {
-  "japanese": "まだだ、まだ終わらんよ！",
-  "romaji": "Mada da, mada owaran yo!",
-  "english": "Not yet! It's not over yet! (alt wording 22)",
-  "anime": "Mobile Suit Gundam",
-  "character": "Char Aznable"
-},
+    "japanese": "何ッ！？",
+    "romaji": "Nani!?",
+    "english": "What?!",
+    "anime": "Fist of the North Star",
+    "character": "Shin"
+  },
   {
-  "japanese": "世界は残酷だ…それでも美しい",
-  "romaji": "Sekai wa zankoku da... soredemo utsukushii",
-  "english": "This world is cruel... yet so beautiful. (alt wording 26)",
-  "anime": "Attack on Titan",
-  "character": "Mikasa Ackerman"
-}
+    "japanese": "まだだ、まだ終わらんよ！",
+    "romaji": "Mada da, mada owaran yo!",
+    "english": "Not yet! It's not over yet! (alt wording 22)",
+    "anime": "Mobile Suit Gundam",
+    "character": "Char Aznable"
+  },
+  {
+    "japanese": "世界は残酷だ…それでも美しい",
+    "romaji": "Sekai wa zankoku da... soredemo utsukushii",
+    "english": "This world is cruel... yet so beautiful. (alt wording 26)",
+    "anime": "Attack on Titan",
+    "character": "Mikasa Ackerman"
+  }
 ]
