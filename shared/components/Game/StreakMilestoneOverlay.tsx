@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Flame } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { useHasFinePointer } from '@/shared/hooks/generic/useHasFinePointer';
 
 interface StreakMilestoneOverlayProps {
@@ -104,9 +104,9 @@ export default function StreakMilestoneOverlay({
           >
             <motion.div
               variants={itemVariants}
-              className='rounded-3xl border-2 border-(--main-color)/20 bg-(--card-color) p-6'
+              className='inline-flex h-24 w-24 items-center justify-center rounded-2xl bg-(--secondary-color) border-b-8 border-(--secondary-color-accent) text-(--background-color) transition-all duration-200'
             >
-              <Flame className='h-20 w-20 text-(--main-color)' strokeWidth={2.5} />
+              <Star className='h-14 w-14 animate-spin' strokeWidth={2.5} />
             </motion.div>
 
             <motion.h2
