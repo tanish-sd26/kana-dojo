@@ -92,21 +92,36 @@ const getBaseRadius = (viewportWidth: number, charSize: number): number => {
 
 The positioning algorithm uses rejection sampling to place characters randomly while respecting constraints:
 
+**Viewport Bounds Guarantee:**
+
+Characters are positioned using `translate(-50%, -50%)` CSS transform, which centers them on their coordinates. To ensure characters never get clipped at viewport edges:
+
+- **Padding calculation**: `(charSize / 2) + (charSize * 0.2)`
+  - `charSize / 2`: Half the character extends in each direction from center
+  - `charSize * 0.2`: 20% buffer for font rendering variations
+- **Result**: Characters are always 100% within viewport bounds (before float animation)
+- **Example**: For 36px character → 18px + 7.2px = 25.2px padding on each edge
+
 **Algorithm Steps:**
 
 1. Calculate personal radius based on character count
-2. For each character (up to `count`):
-   - Generate random x, y position within viewport bounds
+2. Calculate safe padding to prevent viewport clipping
+3. For each character (up to `count`):
+   - Generate random x, y position within safe bounds (padding to viewport - padding)
    - Check if position is valid:
      - Not in exclusion zone (central content area)
      - No collision with existing characters
    - If valid, place character
    - If invalid, retry (up to 200 attempts)
-   - Fallback: place anyway if max attempts reached
+   - Fallback: place with same constraints if max attempts reached
 
 **Pseudocode:**
 
 ```typescript
+const halfChar = charSize / 2;
+const buffer = charSize * 0.2;
+const padding = halfChar + buffer;
+
 for (let i = 0; i < count; i++) {
   let placed = false;
   let attempts = 0;
@@ -122,9 +137,12 @@ for (let i = 0; i < count; i++) {
     attempts++;
   }
 
-  // Fallback placement
+  // Fallback placement (still respects viewport bounds)
   if (!placed) {
-    positions.push({ x: random(...), y: random(...) });
+    positions.push({
+      x: random(padding, viewportWidth - padding),
+      y: random(padding, viewportHeight - padding),
+    });
   }
 }
 ```
@@ -349,7 +367,9 @@ return charSize * 2.5; // Desktop
 
 // Positioning constraints
 const maxAttempts = 200; // Max placement attempts
-const padding = charSize; // Viewport edge padding
+const halfChar = charSize / 2;
+const buffer = charSize * 0.2;
+const padding = halfChar + buffer; // Viewport edge padding (ensures full visibility)
 ```
 
 **In `FloatingKanji.tsx`:**

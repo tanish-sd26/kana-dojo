@@ -132,14 +132,21 @@ export const generateRandomPositions = (
 
   const positions: Position[] = [];
   const maxAttempts = 200; // Increased for better distribution
-  const padding = charSize; // Keep chars fully visible
+
+  // Since we use translate(-50%, -50%) to center the character on its position,
+  // the character extends charSize/2 in each direction from the center point.
+  // Add extra buffer (20%) to account for font rendering variations and ensure
+  // characters never get clipped at viewport edges.
+  const halfChar = charSize / 2;
+  const buffer = charSize * 0.2;
+  const padding = halfChar + buffer;
 
   for (let i = 0; i < count; i++) {
     let placed = false;
     let attempts = 0;
 
     while (!placed && attempts < maxAttempts) {
-      // Generate random position within viewport bounds
+      // Generate random position within safe viewport bounds
       const x = rng.real(padding, viewportWidth - padding);
       const y = rng.real(padding, viewportHeight - padding);
 
@@ -154,7 +161,8 @@ export const generateRandomPositions = (
       attempts++;
     }
 
-    // Fallback: place with reduced constraints if max attempts reached
+    // Fallback: place with same constraints if max attempts reached
+    // Always respect viewport bounds to prevent clipping
     if (!placed) {
       const x = rng.real(padding, viewportWidth - padding);
       const y = rng.real(padding, viewportHeight - padding);
