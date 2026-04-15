@@ -320,7 +320,7 @@
   {
     "id": 54,
     "fact": "Japan has a highway that passes directly through a building in Osaka - the Gate Tower Building has floors 5-7 as a tunnel.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -698,7 +698,7 @@
   {
     "id": 117,
     "fact": "The Japanese word 'yabai' (やばい) originally meant 'dangerous' but now means anything extreme - amazing or terrible.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -746,13 +746,13 @@
   {
     "id": 125,
     "fact": "The word 'yoroshiku' (よろしく) has no direct translation - it's used for introductions, requests, and meaning 'please treat me well'.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
     "id": 126,
     "fact": "Japan's streets are so safe that children as young as 6 commute alone on public trains to school every day.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1238,7 +1238,7 @@
   {
     "id": 207,
     "fact": "Japan’s mountainous terrain means about 70% of the country is forested.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1340,7 +1340,7 @@
   {
     "id": 224,
     "fact": "The Japanese word 'mijikai' (短い) means short, but 'mijikai hanashi' can refer to a concise story — valued in polite conversation.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1412,7 +1412,7 @@
   {
     "id": 236,
     "fact": "The concept of 'yoin' (余韻) refers to the lingering aftertaste or feeling, and is used for everything from tea to music performances.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1454,7 +1454,7 @@
   {
     "id": 243,
     "fact": "Japan has a practice called 'teinei' (丁寧), meaning careful, polite attention — prized in customer service and crafts.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1502,7 +1502,7 @@
   {
     "id": 251,
     "fact": "Japan has an art of arranging flowers called 'ikebana' (生け花), focusing on balance, line, and space rather than volume.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1520,7 +1520,7 @@
   {
     "id": 254,
     "fact": "The term 'ashita no tenki' (明日の天気) is used in small talk, similar to discussing the weather to open conversations.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1568,7 +1568,7 @@
   {
     "id": 262,
     "fact": "The term 'yuyake' (夕焼け) means sunset glow, and many schools have songs that reference it as a symbol of going home.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1676,7 +1676,7 @@
   {
     "id": 280,
     "fact": "The phrase 'shinpuru' (シンプル) is the Japanese adoption of 'simple', often implying elegant minimalism.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
@@ -1826,13 +1826,13 @@
   {
     "id": 305,
     "fact": "The term 'shibui' (渋い) refers to understated, elegant beauty—often used for subtle flavors or aesthetics.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
     "id": 306,
     "fact": "A 'kotatsu' is a low table with a heater and blanket, making winter living rooms warm and cozy in Japan.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {

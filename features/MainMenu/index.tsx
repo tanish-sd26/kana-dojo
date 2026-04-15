@@ -2,8 +2,8 @@
 import { Fragment, lazy, Suspense, useState, useEffect } from 'react';
 import { Link } from '@/core/i18n/routing';
 import KanaDojoBanner from './KanaDojoBanner';
-import Info from '@/shared/components/Menu/Info';
-import NightlyBanner from '@/shared/components/Modals/NightlyBanner';
+import Info from '@/shared/ui-composite/Menu/Info';
+import NightlyBanner from '@/shared/ui-composite/Modals/NightlyBanner';
 import {
   ScrollText,
   FileLock2,
@@ -356,3 +356,4 @@ const MainMenu = () => {
 };
 
 export default MainMenu;
+

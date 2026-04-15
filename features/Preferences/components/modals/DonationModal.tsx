@@ -1,11 +1,11 @@
 'use client';
 
-import { ActionButton } from '@/shared/components/ui/ActionButton';
+import { ActionButton } from '@/shared/ui/components/ActionButton';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Heart, X } from 'lucide-react';
 import { useCallback } from 'react';
 import { useClick } from '@/shared/hooks/generic/useAudio';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/utils/utils';
 
 interface DonationModalProps {
   open: boolean;
@@ -136,3 +136,4 @@ export default function DonationModal({
     </DialogPrimitive.Root>
   );
 }
+
