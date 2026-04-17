@@ -180,12 +180,34 @@
   "english": "Are you prepared? I am.",
   "game": "JoJo’s Bizarre Adventure: All-Star Battle",
   "character": "Giorno Giovanna"
-}
+},
   {
   "japanese": "行くぞ、みんな！",
   "romaji": "Iku zo, minna!",
   "english": "Let's go, everyone!",
   "game": "Kingdom Hearts series (JP dub)",
   "character": "Sora"
-}
+},
+  {
+  "japanese": "それもまた一興",
+  "romaji": "Sore mo mata ikkyo",
+  "english": "That too has its charm.",
+  "game": "Onimusha series",
+  "character": "Nobunaga Oda"
+  },
+  {
+  "japanese": "運命なんて、変えてみせる！",
+  "romaji": "Unmei nante, kaete miseru!",
+  "english": "I'll change destiny!",
+  "game": "Final Fantasy Type-0",
+  "character": "Class Zero"
+  },
+  {
+  "japanese": "世界を救うって、そういうことだろ？",
+  "romaji": "Sekai o sukuu tte, sou iu koto daro?",
+  "english": "Saving the world means doing this, right?",
+  "game": "Persona 5 Strikers",
+  "character": "Joker"
+
+  }
 ]
