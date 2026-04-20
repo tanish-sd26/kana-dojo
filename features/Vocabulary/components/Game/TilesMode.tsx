@@ -28,6 +28,11 @@ import {
 } from '@/shared/ui-composite/Game/TilesModeShared';
 import TilesModeGrid from '@/shared/ui-composite/Game/TilesModeGrid';
 import useClassicSessionStore from '@/shared/store/useClassicSessionStore';
+import {
+  formatKeyToQuizType,
+  getAvailableQuestionFormats,
+  getQuestionFormatKey,
+} from '@/features/Vocabulary/components/Game/vocabFormatLock';
 
 const random = new Random();
 const adaptiveSelector = getGlobalAdaptiveSelector();
@@ -199,6 +204,13 @@ const VocabTilesMode = ({
       let effectiveQuizType = currentQuizType;
       if (currentQuizType === 'reading' && !containsKanji(selectedWord)) {
         effectiveQuizType = 'meaning';
+      }
+      const lockedFormat = adaptiveSelector.getPreferredLockedFormat(
+        selectedWord,
+        getAvailableQuestionFormats(selectedWord, isReverse),
+      );
+      if (lockedFormat) {
+        effectiveQuizType = formatKeyToQuizType(lockedFormat);
       }
 
       // Determine correct answer based on quiz type and mode
@@ -373,6 +385,11 @@ const VocabTilesMode = ({
       addCharacterToHistory(questionData.word);
       incrementCharacterScore(questionData.word, 'correct');
       adaptiveSelector.updateCharacterWeight(questionData.word, true);
+      adaptiveSelector.registerQuestionFormatResult(
+        questionData.word,
+        getQuestionFormatKey(questionData.quizType, isReverse),
+        true,
+      );
       incrementVocabularyCorrect();
 
       incrementCorrectAnswers();
@@ -423,6 +440,11 @@ const VocabTilesMode = ({
 
       incrementCharacterScore(questionData.word, 'wrong');
       adaptiveSelector.updateCharacterWeight(questionData.word, false);
+      adaptiveSelector.registerQuestionFormatResult(
+        questionData.word,
+        getQuestionFormatKey(questionData.quizType, isReverse),
+        false,
+      );
 
       if (score - 1 >= 0) {
         setScore(score - 1);
@@ -498,7 +520,14 @@ const VocabTilesMode = ({
     externalOnCorrect?.([questionData.word]);
 
     // Determine next quiz type based on word content
-    const nextType = getNextQuizType(questionData.word, quizType);
+    const baseNextType = getNextQuizType(questionData.word, quizType);
+    const lockedFormat = adaptiveSelector.getPreferredLockedFormat(
+      questionData.word,
+      getAvailableQuestionFormats(questionData.word, isReverse),
+    );
+    const nextType = lockedFormat
+      ? formatKeyToQuizType(lockedFormat)
+      : baseNextType;
     setQuizType(nextType);
     resetGame(nextType);
   }, [

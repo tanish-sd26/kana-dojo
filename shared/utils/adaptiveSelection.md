@@ -182,6 +182,32 @@ Small symmetric random jitter prevents deterministic lock-in and helps tie-break
 - increments `sessionAnswerCount`
 - persists historical state (coalesced)
 
+### Multi-key prompts (Kana Input/Tiles)
+
+For prompts containing multiple kana positions, caller components update one selector key per position:
+
+- matched position => `isCorrect = true`
+- mismatched or missing expected position => `isCorrect = false`
+- extra user input beyond expected length is ignored for selector updates
+
+This keeps game scoring UX unchanged while making adaptation granular and accurate.
+
+### Vocabulary format locks (session-scoped)
+
+The selector also tracks session-only format performance for word-level keys:
+
+- `registerQuestionFormatResult(word, format, isCorrect)`
+- `getPreferredLockedFormat(word, candidateFormats)`
+
+Formats are caller-defined strings (e.g. `meaning-normal`, `meaning-reverse`, `reading`).
+
+Behavior:
+
+- wrong answer in a format marks that format as pending lock for the word
+- lock persists until that exact format is answered correctly once
+- if multiple formats are pending, the worst format-specific accuracy is prioritized
+- lock state resets when `startSession(...)` changes session token
+
 ---
 
 ## Persistence and migration

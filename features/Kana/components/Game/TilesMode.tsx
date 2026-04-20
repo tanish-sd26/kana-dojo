@@ -363,9 +363,13 @@ const KanaTilesMode = ({
       incrementWrongStreak();
       incrementWrongAnswers();
 
-      wordData.wordChars.forEach(char => {
+      const placedArray = placedTileIds.map(id => wordData.allTiles.get(id) ?? '');
+      wordData.wordChars.forEach((char, index) => {
         incrementCharacterScore(char, 'wrong');
-        adaptiveSelector.updateCharacterWeight(char, false);
+        adaptiveSelector.updateCharacterWeight(
+          char,
+          placedArray[index] === wordData.answerChars[index],
+        );
       });
 
       if (score - 1 >= 0) {

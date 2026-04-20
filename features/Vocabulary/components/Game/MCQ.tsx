@@ -17,6 +17,11 @@ import FuriganaText from '@/shared/ui-composite/text/FuriganaText';
 import { useCrazyModeTrigger } from '@/features/CrazyMode/hooks/useCrazyModeTrigger';
 import { getGlobalAdaptiveSelector } from '@/shared/utils/adaptiveSelection';
 import { useSmartReverseMode } from '@/shared/hooks/game/useSmartReverseMode';
+import {
+  formatKeyToQuizType,
+  getAvailableQuestionFormats,
+  getQuestionFormatKey,
+} from '@/features/Vocabulary/components/Game/vocabFormatLock';
 
 const random = new Random();
 
@@ -271,6 +276,11 @@ const VocabMCQ = ({ selectedWordObjs, isHidden }: VocabMCQProps) => {
     triggerCrazyMode();
     // Update adaptive weight system - reduces probability of mastered words
     adaptiveSelector.updateCharacterWeight(correctChar, true);
+    adaptiveSelector.registerQuestionFormatResult(
+      correctChar,
+      getQuestionFormatKey(quizType, isReverse),
+      true,
+    );
     // Smart algorithm decides next mode based on performance
     decideNextMode();
     // Track vocabulary correct for achievements
@@ -292,6 +302,11 @@ const VocabMCQ = ({ selectedWordObjs, isHidden }: VocabMCQProps) => {
     triggerCrazyMode();
     // Update adaptive weight system - increases probability of difficult words
     adaptiveSelector.updateCharacterWeight(correctChar, false);
+    adaptiveSelector.registerQuestionFormatResult(
+      correctChar,
+      getQuestionFormatKey(quizType, isReverse),
+      false,
+    );
     // Reset consecutive streak without changing mode (avoids rerolling the question)
     recordWrongAnswer();
     // Track wrong streak for achievements (Requirement 10.2)
@@ -316,14 +331,18 @@ const VocabMCQ = ({ selectedWordObjs, isHidden }: VocabMCQProps) => {
     const newWordObj = wordObjMap.get(newChar);
     const wordToCheck = newWordObj?.word ?? '';
 
-    // Only toggle to reading quiz if the word contains kanji
-    // Pure kana words skip reading quiz since reading === word
-    if (containsKanji(wordToCheck)) {
-      setQuizType(prev => (prev === 'meaning' ? 'reading' : 'meaning'));
-    } else {
-      // For pure kana words, always use meaning quiz
-      setQuizType('meaning');
-    }
+    const baseQuizType = containsKanji(wordToCheck)
+      ? quizType === 'meaning'
+        ? 'reading'
+        : 'meaning'
+      : 'meaning';
+    const lockedFormat = adaptiveSelector.getPreferredLockedFormat(
+      newChar,
+      getAvailableQuestionFormats(wordToCheck, isReverse),
+    );
+    setQuizType(
+      lockedFormat ? formatKeyToQuizType(lockedFormat) : baseQuizType,
+    );
   };
 
   const displayCharLang =

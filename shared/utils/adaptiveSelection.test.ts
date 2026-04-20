@@ -113,4 +113,22 @@ describe('adaptiveSelection v2', () => {
 
     expect(hardKeyWins).toBeGreaterThan(easyKeyWins);
   });
+
+  it('locks vocabulary format to worst pending format until cleared by correct answer', () => {
+    const selector = createAdaptiveSelector();
+    selector.startSession('format-lock');
+
+    selector.registerQuestionFormatResult('食べる', 'reading', false);
+    selector.registerQuestionFormatResult('食べる', 'meaning-normal', false);
+    selector.registerQuestionFormatResult('食べる', 'meaning-normal', true);
+
+    expect(
+      selector.getPreferredLockedFormat('食べる', ['meaning-normal', 'reading']),
+    ).toBe('reading');
+
+    selector.registerQuestionFormatResult('食べる', 'reading', true);
+    expect(
+      selector.getPreferredLockedFormat('食べる', ['meaning-normal', 'reading']),
+    ).toBeNull();
+  });
 });

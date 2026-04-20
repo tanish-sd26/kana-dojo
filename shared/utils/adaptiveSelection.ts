@@ -27,6 +27,12 @@ export interface CharacterWeight {
   lastSeenSelectionIndex: number | null;
 }
 
+interface FormatPerformance {
+  correct: number;
+  wrong: number;
+  pendingWrong: boolean;
+}
+
 interface PersistedCharacterWeight {
   correct: number;
   wrong: number;
@@ -74,6 +80,8 @@ export function createAdaptiveSelector(storageKey?: string) {
 
   // Prevent immediate duplicates.
   let lastSelectedCharacter: string | null = null;
+  const sessionFormatPerformance: Map<string, Map<string, FormatPerformance>> =
+    new Map();
 
   // Coalesced persistence without timers.
   let persistInFlight: Promise<void> | null = null;
@@ -111,6 +119,31 @@ export function createAdaptiveSelector(storageKey?: string) {
       weight.seenCountInSession = 0;
       weight.lastSeenSelectionIndex = null;
     });
+    sessionFormatPerformance.clear();
+  };
+
+  const getOrCreateFormatPerformance = (
+    word: string,
+    format: string,
+  ): FormatPerformance => {
+    const normalizedWord = word.trim();
+    const normalizedFormat = format.trim();
+    if (!normalizedWord || !normalizedFormat) {
+      return { correct: 0, wrong: 0, pendingWrong: false };
+    }
+
+    let formatMap = sessionFormatPerformance.get(normalizedWord);
+    if (!formatMap) {
+      formatMap = new Map();
+      sessionFormatPerformance.set(normalizedWord, formatMap);
+    }
+
+    const existing = formatMap.get(normalizedFormat);
+    if (existing) return existing;
+
+    const initial: FormatPerformance = { correct: 0, wrong: 0, pendingWrong: false };
+    formatMap.set(normalizedFormat, initial);
+    return initial;
   };
 
   const persistHistorical = async (): Promise<void> => {
@@ -474,6 +507,52 @@ export function createAdaptiveSelector(storageKey?: string) {
     resetSessionState();
   };
 
+  const registerQuestionFormatResult = (
+    word: string,
+    format: string,
+    isCorrect: boolean,
+  ): void => {
+    if (!word || !format) return;
+    const performance = getOrCreateFormatPerformance(word, format);
+    if (isCorrect) {
+      performance.correct += 1;
+      performance.pendingWrong = false;
+      return;
+    }
+
+    performance.wrong += 1;
+    performance.pendingWrong = true;
+  };
+
+  const getPreferredLockedFormat = (
+    word: string,
+    candidateFormats: string[],
+  ): string | null => {
+    if (!word || candidateFormats.length === 0) return null;
+    const formatMap = sessionFormatPerformance.get(word);
+    if (!formatMap) return null;
+
+    const scored = candidateFormats
+      .map((format, index) => {
+        const perf = formatMap.get(format);
+        if (!perf || !perf.pendingWrong) return null;
+        const attempts = perf.correct + perf.wrong;
+        const accuracy = attempts > 0 ? perf.correct / attempts : 1;
+        return { format, index, accuracy, wrong: perf.wrong };
+      })
+      .filter((entry): entry is NonNullable<typeof entry> => entry !== null);
+
+    if (scored.length === 0) return null;
+
+    scored.sort((a, b) => {
+      if (a.accuracy !== b.accuracy) return a.accuracy - b.accuracy;
+      if (a.wrong !== b.wrong) return b.wrong - a.wrong;
+      return a.index - b.index;
+    });
+
+    return scored[0].format;
+  };
+
   return {
     selectWeightedCharacter,
     updateCharacterWeight,
@@ -484,6 +563,8 @@ export function createAdaptiveSelector(storageKey?: string) {
     ensureLoaded,
     forceSave,
     startSession,
+    registerQuestionFormatResult,
+    getPreferredLockedFormat,
   };
 }
 

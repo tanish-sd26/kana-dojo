@@ -13,6 +13,7 @@ import { useCrazyModeTrigger } from '@/features/CrazyMode/hooks/useCrazyModeTrig
 import { getGlobalAdaptiveSelector } from '@/shared/utils/adaptiveSelection';
 import { GameBottomBar } from '@/shared/ui-composite/Game/GameBottomBar';
 import { isKanaInputAnswerCorrect } from '@/features/Kana/lib/isKanaInputAnswerCorrect';
+import { evaluateKanaAdaptivePositions } from '@/features/Kana/lib/evaluateKanaAdaptivePositions';
 import useClassicSessionStore from '@/shared/store/useClassicSessionStore';
 import { useAdaptiveTargetLength } from '@/shared/hooks/game/useAdaptiveTargetLength';
 import { useThemePreferences } from '@/features/Preferences';
@@ -135,7 +136,9 @@ const InputGame = ({ isHidden, isReverse = false }: InputGameProps) => {
 
   const buildTargetPair = useCallback(() => {
     const sourceArray = isReverse ? selectedRomaji : selectedKana;
-    if (sourceArray.length === 0) return { correctChar: '', targetChar: '' };
+    if (sourceArray.length === 0) {
+      return { correctChar: '', targetChar: '', promptParts: [], answerParts: [] };
+    }
 
     const used = new Set<string>();
     const promptParts: string[] = [];
@@ -151,12 +154,19 @@ const InputGame = ({ isHidden, isReverse = false }: InputGameProps) => {
       answerParts.push(selectedPairs[selected]);
     }
 
-    return { correctChar: promptParts.join(''), targetChar: answerParts.join('') };
+    return {
+      correctChar: promptParts.join(''),
+      targetChar: answerParts.join(''),
+      promptParts,
+      answerParts,
+    };
   }, [isReverse, selectedRomaji, selectedKana, targetLength, selectedPairs]);
 
   const [pairData, setPairData] = useState(() => buildTargetPair());
   const correctChar = pairData.correctChar;
   const targetChar = pairData.targetChar;
+  const promptParts = pairData.promptParts;
+  const answerParts = pairData.answerParts;
   const pauseTimer = useCallback(() => {
     if (answerStartTimeRef.current !== null) {
       elapsedTimeMsRef.current += performance.now() - answerStartTimeRef.current;
@@ -264,7 +274,7 @@ const InputGame = ({ isHidden, isReverse = false }: InputGameProps) => {
     setScore(score + 1);
 
     triggerCrazyMode();
-    correctChar.split('').forEach(char => {
+    promptParts.forEach(char => {
       adaptiveSelector.updateCharacterWeight(char, true);
       if (isHiragana(char)) incrementHiraganaCorrect();
       else if (isKatakana(char)) incrementKatakanaCorrect();
@@ -298,9 +308,16 @@ const InputGame = ({ isHidden, isReverse = false }: InputGameProps) => {
       setScore(score - 1);
     }
     triggerCrazyMode();
-    correctChar.split('').forEach(char =>
-      adaptiveSelector.updateCharacterWeight(char, false),
-    );
+    const positionResults = evaluateKanaAdaptivePositions({
+      promptChars: promptParts,
+      answerParts,
+      inputValue: wrongInput,
+      isReverse,
+      altRomanjiMap,
+    });
+    promptParts.forEach((char, index) => {
+      adaptiveSelector.updateCharacterWeight(char, positionResults[index]);
+    });
     incrementWrongStreak();
     recordTargetLengthWrong();
     setBottomBarState('wrong');
