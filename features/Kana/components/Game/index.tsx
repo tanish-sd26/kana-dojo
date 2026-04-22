@@ -118,7 +118,7 @@ const Game = () => {
       <div
         key={sessionNonce}
         className={clsx(
-          'flex min-h-[100dvh] max-w-[100dvw] flex-col items-center gap-6 px-4 md:gap-10',
+          'flex min-h-[100dvh] max-w-[100dvw] flex-col items-center gap-8 px-2 md:px-0 md:gap-12',
         )}
       >
         {showStats && <Stats />}

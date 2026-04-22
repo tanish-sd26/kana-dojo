@@ -5,9 +5,14 @@ import {
   CircleX,
   CircleArrowRight,
   RotateCcw,
+  Flag,
 } from 'lucide-react';
 import clsx from 'clsx';
 import { ActionButton } from '@/shared/ui/components/ActionButton';
+import { useClick } from '@/shared/hooks/generic/useAudio';
+
+// Toggle between new SVG check icon (true) and old CircleCheck icon (false)
+const USE_NEW_CHECK_ICON = true;
 
 export type BottomBarState = 'check' | 'correct' | 'wrong';
 
@@ -37,6 +42,8 @@ export const GameBottomBar = ({
   className,
   hideRetry = false,
 }: GameBottomBarProps) => {
+  const { playClick } = useClick();
+
   const isCorrect = state === 'correct';
   const isWrong = state === 'wrong';
   const showFeedback = state !== 'check';
@@ -72,7 +79,7 @@ export const GameBottomBar = ({
       className={clsx(
         'right-0 left-0 w-full',
         'border-t-2 border-(--border-color) bg-(--card-color)',
-        'absolute bottom-0 z-10 px-2 py-4 sm:py-3 md:bottom-6 md:px-12 md:pt-2 md:pb-4',
+        'absolute bottom-0 z-10 px-2.5 py-4 sm:py-3 md:bottom-6 md:px-12 md:pt-2 md:pb-4',
         'flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-0',
         className,
       )}
@@ -80,33 +87,69 @@ export const GameBottomBar = ({
       {/* Feedback Container: Hidden on mobile when no feedback, always visible on desktop */}
       <div
         className={clsx(
-          'w-full items-center justify-start sm:flex sm:w-1/2 sm:justify-center',
+          'w-full items-center justify-between sm:flex sm:w-1/2 sm:justify-center',
           showFeedback ? 'flex' : 'hidden',
         )}
       >
         <div
           className={clsx(
-            'flex items-center gap-2 transition-all duration-500 sm:gap-3 md:gap-4',
+            'flex items-center gap-3 transition-all duration-500 md:gap-4',
             showFeedback
               ? 'translate-x-0 opacity-100'
               : 'pointer-events-none -translate-x-4 opacity-0 sm:-translate-x-8',
           )}
         >
           {isCorrect && (
-            <CircleCheck className='h-10 w-10 text-(--main-color) sm:h-12 sm:w-12' />
+            USE_NEW_CHECK_ICON ? (
+              <div className='flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-(--main-color) bg-(--main-color) sm:h-12 sm:w-12'>
+                <svg
+                  className='h-6 w-6 text-(--background-color) sm:h-8 sm:w-8'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={3}
+                    d='M5 13l4 4L19 7'
+                  />
+                </svg>
+              </div>
+            ) : (
+              <CircleCheck className='h-10 w-10 text-(--main-color) sm:h-12 sm:w-12' />
+            )
           )}
           {isWrong && (
             <CircleX className='h-10 w-10 text-(--main-color) sm:h-12 sm:w-12' />
           )}
-          <div className='flex flex-col'>
+          <p className='flex flex-col'>
             <span className='text-lg text-(--secondary-color) sm:text-xl'>
               {frozenTitle}
             </span>
             <span className='text-sm text-(--main-color) sm:text-lg'>
               {frozenFeedbackContent}
             </span>
-          </div>
+          </p>
+          <button
+            onClick={() => {
+                        playClick();
+                        window.open('https://tally.so/r/2E4rB9', '_blank', 'noopener');
+                      }}
+            className='max-sm:hidden'
+          >
+            <Flag className='h-6 w-6 text-(--secondary-color) delay-0 hover:cursor-pointer hover:text-(--main-color)' />
+          </button>
         </div>
+        <button
+          onClick={() => {
+            playClick();
+            window.open('https://tally.so/r/2E4rB9', '_blank', 'noopener');
+          }}
+          className='sm:hidden'
+        >
+          <Flag className='h-6 w-6 text-(--secondary-color) delay-0 hover:cursor-pointer hover:text-(--main-color)' />
+        </button>
       </div>
 
       {/* Buttons Container: Full width on mobile, 50% on desktop */}
@@ -128,14 +171,49 @@ export const GameBottomBar = ({
                 !showContinue &&
                 !showRetryButton &&
                 'cursor-default opacity-60',
-              (canCheck || showNextButton) && 'animate-float [--float-distance:-4.5px]'
+              (canCheck || showNextButton) &&
+                'animate-float [--float-distance:-2.5px]',
             )}
             onClick={onAction}
           >
             {showRetryButton ? (
               <RotateCcw className='h-8 w-8' />
             ) : showNextButton ? (
-              <CircleArrowRight className='h-8 w-8' />
+              USE_NEW_CHECK_ICON ? (
+                <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-(--background-color) bg-(--background-color)'>
+                  <svg
+                    className='h-5 w-5 text-(--main-color)'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M13 7l5 5m0 0l-5 5m5-5H6'
+                    />
+                  </svg>
+                </div>
+              ) : (
+                <CircleArrowRight className='h-8 w-8' />
+              )
+            ) : USE_NEW_CHECK_ICON ? (
+              <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-(--background-color) bg-(--background-color)'>
+                <svg
+                  className='h-5 w-5 text-(--main-color)'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={3}
+                    d='M5 13l4 4L19 7'
+                  />
+                </svg>
+              </div>
             ) : (
               <CircleCheck className='h-8 w-8' />
             )}
@@ -160,4 +238,3 @@ export const GameBottomBar = ({
     </div>
   );
 };
-

@@ -166,7 +166,7 @@ const ContinueButton = ({
 const KanjiDisplay = ({ payload }: { payload: IKanjiObj }) => (
   <motion.div
     variants={mainCharVariants}
-    className='relative flex aspect-square w-full max-w-[100px] items-center justify-center'
+    className='relative flex aspect-square w-full max-w-[100px] sm:max-w-[125px] items-center justify-center'
     style={{ perspective: 1000 }}
   >
     <a
@@ -192,7 +192,7 @@ const KanjiDisplay = ({ payload }: { payload: IKanjiObj }) => (
     <FuriganaText
       text={payload.kanjiChar}
       reading={payload.onyomi[0] || payload.kunyomi[0]}
-      className='relative z-10 pb-2 text-7xl'
+      className='relative z-10 pb-2 text-7xl sm:text-8xl'
       lang='ja'
     />
   </motion.div>
@@ -227,7 +227,7 @@ const ReadingsList = ({
             delay: delay + i * 0.08,
           }}
           className={clsx(
-            'flex flex-row items-center justify-center px-2 py-1 text-sm md:text-base',
+            'flex flex-row items-center justify-center px-2 py-1 text-sm md:text-lg',
             'w-full text-(--secondary-color)',
             i < readings.slice(0, 2).length - 1 &&
               'border-r-1 border-(--border-color)',
@@ -289,7 +289,7 @@ const KanjiSummary = ({
 
     <motion.p
       variants={meaningVariants}
-      className='w-full text-xl text-(--secondary-color) md:text-2xl'
+      className='w-full text-2xl text-(--secondary-color) md:text-3xl'
     >
       {payload.meanings.join(', ')}
     </motion.p>
@@ -330,7 +330,7 @@ const VocabSummary = ({
       initial='hidden'
       animate='visible'
       className={cn(
-        'flex w-full flex-col items-center justify-start gap-4 py-4 md:w-3/4 lg:w-1/2',
+        'flex w-full flex-col items-center justify-start gap-4 sm:gap-6 py-4 md:w-3/4 lg:w-1/2',
         isGlassMode && 'rounded-xl bg-(--card-color) px-4 py-2',
       )}
     >
@@ -350,7 +350,7 @@ const VocabSummary = ({
           <FuriganaText
             text={payload.word}
             reading={payload.reading}
-            className='text-6xl'
+            className='text-6xl sm:text-8xl'
             lang='ja'
           />
         </a>
@@ -364,7 +364,7 @@ const VocabSummary = ({
           variants={readingVariants}
           className={clsx(
             'flex flex-row items-center rounded-xl px-2 py-1',
-            'bg-(--card-color) text-lg',
+            'bg-(--card-color) text-xl',
             'text-(--secondary-color)',
           )}
         >
@@ -372,7 +372,7 @@ const VocabSummary = ({
         </motion.span>
         <motion.p
           variants={meaningVariants}
-          className='text-xl text-(--secondary-color) md:text-2xl'
+          className='text-2xl text-(--secondary-color) md:text-3xl'
         >
           {payload.meanings.join(', ')}
         </motion.p>

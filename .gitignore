@@ -44,6 +44,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 dev-output.log
+zizmor-report.json
 
 # env files (can opt-in for committing if needed)
 .env*

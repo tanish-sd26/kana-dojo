@@ -150,9 +150,9 @@ const Return = ({ isHidden, gameMode, onQuit }: ReturnProps) => {
 
           {/* Stats button - hidden on small screens, visible on sm and up */}
           <ActionButton
-            borderRadius='3xl'
+            borderRadius='2xl'
             borderBottomThickness={8}
-            className='hidden w-auto p-2 text-xl sm:flex md:px-6 animate-float [--float-distance:-6px]'
+            className='hidden w-auto p-2 text-xl sm:flex md:px-6 animate-float [--float-distance:-4px]'
             onClick={handleShowStats}
           >
             <ChartSpline size={24} />

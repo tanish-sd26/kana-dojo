@@ -100,7 +100,7 @@ export default function DonationModal({
                   <a
                     href='https://ko-fi.com/kanadojo'
                     target='_blank'
-                    rel='noreferrer noopener'
+                    rel='noopener'
                     onClick={playClick}
                     className='inline-flex items-center gap-2'
                   >

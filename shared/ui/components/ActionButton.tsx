@@ -18,14 +18,14 @@ const actionButtonVariants = cva(
         secondary: 'border-(--secondary-color-accent)',
       },
       borderRadius: {
-        sm: 'rounded-sm',
-        md: 'rounded-md',
-        lg: 'rounded-lg',
-        xl: 'rounded-xl',
+        'sm': 'rounded-sm',
+        'md': 'rounded-md',
+        'lg': 'rounded-lg',
+        'xl': 'rounded-xl',
         '2xl': 'rounded-2xl',
         '3xl': 'rounded-3xl',
         '4xl': 'rounded-[2rem]',
-        full: 'rounded-full',
+        'full': 'rounded-full',
       },
       borderBottomThickness: {
         0: 'border-b-0 active:border-b-0 active:translate-y-0',
@@ -118,4 +118,3 @@ const ActionButton = React.forwardRef<HTMLButtonElement, ActionButtonProps>(
 ActionButton.displayName = 'ActionButton';
 
 export { ActionButton, actionButtonVariants };
-

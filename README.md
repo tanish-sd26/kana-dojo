@@ -6,14 +6,13 @@
   <img alt="Vercel OSS Program" src="https://vercel.com/oss/program-badge-2026.svg" />
 </a>
 <br/>
+<br/>
 <a href="https://cossistant.com/open-source-program">
   <img alt="Cossistant OSS Program" src="https://cdn.cossistant.com/oss/oss-friends.svg" />
 </a>
 </p>
-<br />
-<br />
 
-<div id="top"></div>
+<!--<div id="top"></div>-->
 
 # KanaDojo かな道場
 
