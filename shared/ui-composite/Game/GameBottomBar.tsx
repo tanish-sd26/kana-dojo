@@ -179,7 +179,25 @@ export const GameBottomBar = ({
             {showRetryButton ? (
               <RotateCcw className='h-8 w-8' />
             ) : showNextButton ? (
-              <CircleArrowRight className='h-8 w-8' />
+              USE_NEW_CHECK_ICON ? (
+                <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-(--background-color) bg-(--background-color)'>
+                  <svg
+                    className='h-5 w-5 text-(--main-color)'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M13 7l5 5m0 0l-5 5m5-5H6'
+                    />
+                  </svg>
+                </div>
+              ) : (
+                <CircleArrowRight className='h-8 w-8' />
+              )
             ) : USE_NEW_CHECK_ICON ? (
               <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-(--background-color) bg-(--background-color)'>
                 <svg
