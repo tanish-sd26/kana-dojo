@@ -1958,9 +1958,9 @@
     "backgroundColor": "oklch(22.0% 0.025 95.0 / 1)",
     "mainColor": "oklch(84.0% 0.120 95.0 / 1)",
     "secondaryColor": "oklch(68.0% 0.090 60.0 / 1)",
-    "issued": true,
+    "issued": false,
     "completed": false,
-    "completedBy": "Kunana-spec",
-    "completedPR": 14047
+    "completedBy": "atharva01c",
+    "completedPR": 14400
   }
 ]
