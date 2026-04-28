@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { toHiragana } from 'wanakana';
 import { IVocabObj } from '@/features/Vocabulary/store/useVocabStore';
 import { useClick, useCorrect, useError } from '@/shared/hooks/generic/useAudio';
-import { useGameStats, useStatsDisplay } from '@/features/Progress';
+import { useGameStats, useStatsDisplay, useStatsStore } from '@/features/Progress';
 import Stars from '@/shared/ui-composite/Game/Stars';
 import AnswerSummary from '@/shared/ui-composite/Game/AnswerSummary';
 import SSRAudioButton from '@/shared/ui-composite/audio/SSRAudioButton';
@@ -220,7 +220,8 @@ const VocabInputGame = ({
           targetChar.some(answer => normalizeAnswer(answer) === normalizeAnswer(input))
         );
       } else {
-        return normalizeAnswer(input) === normalizeAnswer(targetChar);
+        const reverseTargetChar = typeof targetChar === 'string' ? targetChar : '';
+        return normalizeAnswer(input) === normalizeAnswer(reverseTargetChar);
       }
     } else {
       const targetReading = typeof targetChar === 'string' ? targetChar : '';
