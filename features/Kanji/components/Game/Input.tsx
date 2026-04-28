@@ -221,7 +221,8 @@ const KanjiInputGame = ({
         targetChar.some(answer => normalizeAnswer(answer) === normalizedInput)
       );
     } else {
-      return normalizedInput === normalizeAnswer(targetChar);
+      const reverseTargetChar = typeof targetChar === 'string' ? targetChar : '';
+      return normalizedInput === normalizeAnswer(reverseTargetChar);
     }
   };
 
