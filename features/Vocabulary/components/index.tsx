@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import useVocabStore from '@/features/Vocabulary/store/useVocabStore';
 import VocabSetDictionary from '@/features/Vocabulary/components/SetDictionary';
 import {
@@ -18,6 +18,10 @@ import {
   N4VocabLength,
   N5VocabLength,
 } from '@/shared/utils/unitSets';
+import {
+  buildSubunitsForUnit,
+  buildUnitSummaries,
+} from '@/shared/ui-composite/Menu/lib/unitSubunits';
 
 import type { IWord } from '@/shared/types/interfaces';
 
@@ -43,7 +47,6 @@ const VocabCards = () => {
   const selectedVocabCollectionName = useVocabStore(
     state => state.selectedVocabCollection,
   );
-
   const selectedVocabSets = useVocabStore(state => state.selectedVocabSets);
   const setSelectedVocabSets = useVocabStore(
     state => state.setSelectedVocabSets,
@@ -54,18 +57,11 @@ const VocabCards = () => {
   const setCollapsedRowsForUnit = useVocabStore(
     state => state.setCollapsedRowsForUnit,
   );
-  // Get collapsed rows for current unit from store
-  const collapsedRows = useMemo(
-    () => collapsedRowsByUnit[selectedVocabCollectionName] || [],
-    [collapsedRowsByUnit, selectedVocabCollectionName],
+  const selectedSubunitByUnit = useVocabStore(
+    state => state.selectedSubunitByUnit,
   );
-  const setCollapsedRows = useCallback(
-    (updater: number[] | ((prev: number[]) => number[])) => {
-      const newRows =
-        typeof updater === 'function' ? updater(collapsedRows) : updater;
-      setCollapsedRowsForUnit(selectedVocabCollectionName, newRows);
-    },
-    [collapsedRows, selectedVocabCollectionName, setCollapsedRowsForUnit],
+  const setSelectedSubunitForUnit = useVocabStore(
+    state => state.setSelectedSubunitForUnit,
   );
 
   const getCollectionName = useCallback(
@@ -80,6 +76,58 @@ const VocabCards = () => {
     (level: VocabLevel) => VOCAB_LENGTHS[level],
     [],
   );
+
+  const unitSummaries = useMemo(
+    () => buildUnitSummaries(levelOrder, level => VOCAB_LENGTHS[level]),
+    [],
+  );
+  const activeUnitSummary = useMemo(
+    () =>
+      unitSummaries.find(unit => unit.name === selectedVocabCollectionName) ??
+      unitSummaries[0],
+    [selectedVocabCollectionName, unitSummaries],
+  );
+  const subunits = useMemo(
+    () =>
+      buildSubunitsForUnit(
+        activeUnitSummary.startLevel,
+        activeUnitSummary.levelCount,
+      ),
+    [activeUnitSummary.levelCount, activeUnitSummary.startLevel],
+  );
+  const selectedSubunitId =
+    selectedSubunitByUnit[selectedVocabCollectionName] ?? subunits[0]?.id;
+  const activeSubunitRange = useMemo(
+    () =>
+      subunits.find(subunit => subunit.id === selectedSubunitId) ?? subunits[0],
+    [selectedSubunitId, subunits],
+  );
+  const collapsedRowsKey = `${selectedVocabCollectionName}:${activeSubunitRange.id}`;
+
+  useEffect(() => {
+    if (!selectedSubunitId && subunits[0]) {
+      setSelectedSubunitForUnit(selectedVocabCollectionName, subunits[0].id);
+    }
+  }, [
+    selectedSubunitId,
+    selectedVocabCollectionName,
+    setSelectedSubunitForUnit,
+    subunits,
+  ]);
+
+  const collapsedRows = useMemo(
+    () => collapsedRowsByUnit[collapsedRowsKey] || [],
+    [collapsedRowsByUnit, collapsedRowsKey],
+  );
+  const setCollapsedRows = useCallback(
+    (updater: number[] | ((prev: number[]) => number[])) => {
+      const newRows =
+        typeof updater === 'function' ? updater(collapsedRows) : updater;
+      setCollapsedRowsForUnit(collapsedRowsKey, newRows);
+    },
+    [collapsedRows, collapsedRowsKey, setCollapsedRowsForUnit],
+  );
+
   useSetProgressHydration();
   const vocabularyProgress = useSetProgressStore(
     state => state.data.vocabulary,
@@ -115,9 +163,9 @@ const VocabCards = () => {
       renderSetDictionary={items => <VocabSetDictionary words={items} />}
       getSetProgress={getSetProgress}
       loadingText='Loading vocabulary sets...'
+      activeSubunitRange={activeSubunitRange}
     />
   );
 };
 
 export default VocabCards;
-
