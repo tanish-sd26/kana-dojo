@@ -210,8 +210,8 @@ const UnitSelector = () => {
   return (
     <div className='flex flex-col'>
       {/* Modern Toggle-Style Unit Selector */}
-      <div className='flex flex-col gap-2 rounded-4xl border-1 border-(--border-color) bg-(--background-color) p-1 shadow-[0_12px_40px_rgba(0,0,0,0.12)] backdrop-blur-xl'>
-        <div className='flex w-full flex-col gap-2 rounded-[28px] bg-(--card-color) p-2'>
+      <div className='flex flex-col rounded-4xl border-1 border-(--border-color) bg-(--background-color) p-1 shadow-[0_12px_40px_rgba(0,0,0,0.12)] backdrop-blur-xl'>
+        <div className='flex w-full flex-col rounded-[28px] bg-(--card-color) p-2'>
           <div className='flex flex-col gap-2 md:flex-row'>
             {collections.map(collection => {
               const isSelected = collection.name === selectedCollection;
@@ -281,7 +281,7 @@ const UnitSelector = () => {
           {activeCollection &&
             shouldShowSubunitSelector(activeCollection.levelCount) && (
               <>
-                <div className='h-0.5 bg-(--border-color)' />
+                <div className='my-2 h-0.5 bg-(--border-color)' />
                 <SubunitSelector
                   subunits={activeSubunits}
                   selectedSubunitId={resolvedSelectedSubunitId}

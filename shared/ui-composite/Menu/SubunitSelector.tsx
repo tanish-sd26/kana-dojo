@@ -12,7 +12,7 @@ type SubunitSelectorProps = {
 };
 
 const SUBUNIT_SELECTOR_ACTIVE_FLOAT_CLASSES =
-  'motion-safe:animate-float [--float-distance:-3.5px] delay-500ms';
+  'motion-safe:animate-float [--float-distance:-0px] delay-500ms';
 
 const SubunitSelector = ({
   subunits,
@@ -34,7 +34,7 @@ const SubunitSelector = ({
             {isSelected && (
               <motion.div
                 layoutId='subunit-selector-indicator'
-                className='absolute inset-0 rounded-3xl'
+                className='absolute inset-0 rounded-2xl'
                 transition={{
                   type: 'spring',
                   stiffness: 300,
@@ -43,7 +43,7 @@ const SubunitSelector = ({
               >
                 <div
                   className={clsx(
-                    'h-full w-full rounded-3xl border-b-10 border-(--main-color-accent) bg-(--main-color)',
+                    'h-full w-full rounded-2xl border-b-8 border-(--secondary-color-accent) bg-(--secondary-color)',
                     SUBUNIT_SELECTOR_ACTIVE_FLOAT_CLASSES,
                   )}
                 />
@@ -52,7 +52,7 @@ const SubunitSelector = ({
             <ActionButton
               onClick={() => onSelect(subunit.id)}
               borderBottomThickness={0}
-              borderRadius='3xl'
+              borderRadius='2xl'
               className={clsx(
                 'relative z-10 w-full px-4 pt-3 pb-5 text-sm',
                 isSelected && SUBUNIT_SELECTOR_ACTIVE_FLOAT_CLASSES,
